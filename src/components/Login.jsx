@@ -9,11 +9,13 @@ import {
   RegisterButtonContainer,
   SubmitButton,
   SubmitButtonContainer,
+  FormHeader,
 } from "../assets/styledComponents/Main";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login, reset } from "../app/reducer/auth/authSlice";
 import { toast } from "react-toastify";
+import ViteIcon from "../../public/vite.svg";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -46,7 +48,10 @@ export default function Login() {
 
   return (
     <LoginContainer>
-      <Title>Login</Title>
+      <FormHeader>
+        <img src={ViteIcon} alt="vite-icon" />
+        <Title>Login</Title>
+      </FormHeader>
       <FormContainer>
         <form onSubmit={onSubmit}>
           <InputContainer>

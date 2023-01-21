@@ -226,3 +226,10 @@ export const CheckboxIcon = styled.img({
   width: 17,
   height: 17,
 });
+
+export const FormHeader = styled.div({
+  display: "flex",
+  alignItems: "center",
+  gap: 5,
+  justifyContent: "center",
+});
