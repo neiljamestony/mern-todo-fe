@@ -52,9 +52,9 @@ export default function Todo({
   const onRemove = async () => {
     await dispatch(removeTodoItem(_id));
     if (isSuccess) {
-      toast.success("Todo removed successfully!");
       dispatch(getTodoList(user));
       dispatch(reset());
+      toast.success("Todo removed successfully!");
     }
   };
 

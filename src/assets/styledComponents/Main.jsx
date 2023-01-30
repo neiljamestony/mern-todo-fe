@@ -152,13 +152,8 @@ export const AddTodoButton = styled.button({
 export const DashboardBody = styled.div({
   backgroundColor: "#DFDFDE",
   padding: 6,
-  height: 537,
-  borderRadius: "0 0 10px 10px",
+  height: 500,
   overflowY: "scroll",
-  "::-webkit-scrollbar": {
-    backgroundColor: "none",
-    width: "100%",
-  },
 });
 
 export const DashboardBodyWrapper = styled.div({

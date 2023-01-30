@@ -97,6 +97,7 @@ export default function Header({
                   value={todo}
                   onChange={(e) => setTodo(e.target.value)}
                   placeholder="Todo"
+                  required
                 />
                 <AddTodoButton type="submit" disabled={isLoading}>
                   {isLoading ? "loading" : "Save"}
