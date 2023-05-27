@@ -1,5 +1,5 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import todoService from "./todoService";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import todoService from './todoService';
 
 const initialState = {
   isError: false,
@@ -7,12 +7,13 @@ const initialState = {
   isLoading: false,
   isFetching: false,
   isRemoving: false,
-  message: "",
+  search: '',
+  message: '',
   todos: [],
 };
 
 export const getTodoList = createAsyncThunk(
-  "auth/list",
+  'auth/list',
   async (uid, thunkAPI) => {
     try {
       return await todoService.getTodos(uid);
@@ -29,7 +30,7 @@ export const getTodoList = createAsyncThunk(
 );
 
 export const setTodoItem = createAsyncThunk(
-  "auth/create",
+  'auth/create',
   async (formData, thunkAPI) => {
     try {
       return await todoService.setTodo(formData);
@@ -46,7 +47,7 @@ export const setTodoItem = createAsyncThunk(
 // update todo
 
 export const editTodoItem = createAsyncThunk(
-  "auth/edit",
+  'auth/edit',
   async (formData, thunkAPI) => {
     try {
       return await todoService.updateTodo(formData);
@@ -64,7 +65,7 @@ export const editTodoItem = createAsyncThunk(
 
 //complete todo
 export const completeTodoItem = createAsyncThunk(
-  "auth/isComplete",
+  'auth/isComplete',
   async (formData, thunkAPI) => {
     try {
       return await todoService.completeTodo(formData);
@@ -83,7 +84,7 @@ export const completeTodoItem = createAsyncThunk(
 // remove todo
 
 export const removeTodoItem = createAsyncThunk(
-  "auth/remove",
+  'auth/remove',
   async (id, thunkAPI) => {
     try {
       return await todoService.removeTodo(id);
@@ -100,7 +101,7 @@ export const removeTodoItem = createAsyncThunk(
 );
 
 const todoSlice = createSlice({
-  name: "todoSlice",
+  name: 'todoSlice',
   initialState,
   reducers: {
     reset: (state) => {
@@ -109,7 +110,10 @@ const todoSlice = createSlice({
       state.isLoading = false;
       state.isFetching = false;
       state.isRemoving = false;
-      state.message = "";
+      state.message = '';
+    },
+    searchTodo: (state, action) => {
+      state.search = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -181,6 +185,6 @@ const todoSlice = createSlice({
   },
 });
 
-export const { reset } = todoSlice.actions;
+export const { reset, searchTodo } = todoSlice.actions;
 
 export default todoSlice.reducer;

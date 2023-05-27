@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { register, reset } from "../app/reducer/auth/authSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import ViteIcon from "../../public/vite.svg";
+import ViteIcon from "../assets/img/vite.svg";
 
 export default function Register() {
   const navigate = useNavigate();

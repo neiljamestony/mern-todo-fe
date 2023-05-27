@@ -1,29 +1,24 @@
-import { useState } from "react";
+import { useState } from 'react';
 import {
   DashboardHeader,
   AddTodoInput,
   AddTodoButton,
-} from "../../assets/styledComponents/Main";
-import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../app/reducer/auth/authSlice";
+} from '../../assets/styledComponents/Main';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../app/reducer/auth/authSlice';
 import {
   setTodoItem,
   reset,
   editTodoItem,
-} from "../../app/reducer/todo/todoSlice";
-import { toast } from "react-toastify";
+  searchTodo,
+} from '../../app/reducer/todo/todoSlice';
+import { toast } from 'react-toastify';
 
-export default function Header({
-  setSearch,
-  isEdit,
-  setIsEdit,
-  currTodo,
-  setCurrTodo,
-}) {
+export default function Header({ isEdit, setIsEdit, currTodo, setCurrTodo }) {
   const [isSearch, setIsSearch] = useState(false);
   const dispatch = useDispatch();
-  const [todo, setTodo] = useState("");
-  const user = JSON.parse(localStorage.getItem("user"));
+  const [todo, setTodo] = useState('');
+  const user = JSON.parse(localStorage.getItem('user'));
   const { isLoading, isSuccess } = useSelector((state) => state.todo);
 
   const onSubmit = async (e) => {
@@ -32,8 +27,8 @@ export default function Header({
       setTodoItem({ todo: todo, uid: user._id, isCompleted: false })
     );
     if (isSuccess) {
-      setTodo("");
-      toast.success("Todo added successfully!");
+      setTodo('');
+      toast.success('Todo added successfully!');
       dispatch(reset());
     }
   };
@@ -42,8 +37,8 @@ export default function Header({
     e.preventDefault();
     await dispatch(editTodoItem(currTodo));
     if (isSuccess) {
-      setTodo("");
-      setCurrTodo("");
+      setTodo('');
+      setCurrTodo('');
       setIsEdit(false);
       dispatch(reset());
     }
@@ -51,7 +46,7 @@ export default function Header({
 
   const onCancel = () => {
     setIsEdit(false);
-    setCurrTodo("");
+    setCurrTodo('');
   };
 
   return (
@@ -59,11 +54,11 @@ export default function Header({
       {isSearch ? (
         <DashboardHeader>
           <AddTodoInput
-            type="text"
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search Todo"
+            type='text'
+            onChange={(e) => dispatch(searchTodo(e.target.value))}
+            placeholder='Search Todo'
           />
-          <AddTodoButton type="button" onClick={() => setIsSearch(false)}>
+          <AddTodoButton type='button' onClick={() => setIsSearch(false)}>
             Add Todo
           </AddTodoButton>
         </DashboardHeader>
@@ -73,18 +68,18 @@ export default function Header({
             <form onSubmit={onSubmitEdit}>
               <DashboardHeader>
                 <AddTodoInput
-                  type="text"
+                  type='text'
                   value={currTodo?.title}
                   onChange={(e) =>
                     setCurrTodo({ ...currTodo, title: e.target.value })
                   }
-                  placeholder="Edit Todo"
+                  placeholder='Edit Todo'
                   required
                 />
-                <AddTodoButton type="submit" disabled={isLoading}>
-                  {isLoading ? "loading ..." : "Submit"}
+                <AddTodoButton type='submit' disabled={isLoading}>
+                  {isLoading ? 'loading ...' : 'Submit'}
                 </AddTodoButton>
-                <AddTodoButton type="button" onClick={() => onCancel()}>
+                <AddTodoButton type='button' onClick={() => onCancel()}>
                   Cancel
                 </AddTodoButton>
               </DashboardHeader>
@@ -93,19 +88,19 @@ export default function Header({
             <form onSubmit={onSubmit}>
               <DashboardHeader>
                 <AddTodoInput
-                  type="text"
+                  type='text'
                   value={todo}
                   onChange={(e) => setTodo(e.target.value)}
-                  placeholder="Todo"
+                  placeholder='Todo'
                   required
                 />
-                <AddTodoButton type="submit" disabled={isLoading}>
-                  {isLoading ? "loading" : "Save"}
+                <AddTodoButton type='submit' disabled={isLoading}>
+                  {isLoading ? 'loading' : 'Save'}
                 </AddTodoButton>
-                <AddTodoButton type="button" onClick={() => setIsSearch(true)}>
+                <AddTodoButton type='button' onClick={() => setIsSearch(true)}>
                   Search Todo
                 </AddTodoButton>
-                <AddTodoButton type="button" onClick={() => dispatch(logout())}>
+                <AddTodoButton type='button' onClick={() => dispatch(logout())}>
                   Logout
                 </AddTodoButton>
               </DashboardHeader>
