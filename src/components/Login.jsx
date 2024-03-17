@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 import {
   LoginContainer,
   FormContainer,
@@ -10,17 +10,18 @@ import {
   SubmitButton,
   SubmitButtonContainer,
   FormHeader,
-} from "../assets/styledComponents/Main";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { login, reset } from "../app/reducer/auth/authSlice";
-import { toast } from "react-toastify";
-import ViteIcon from "../assets/img/vite.svg";
+} from '../assets/styledComponents/Main';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { login, reset } from '../app/reducer/auth/authSlice';
+import { toast } from 'react-toastify';
+import ViteIcon from '../assets/img/vite.svg';
 
 export default function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isError, isSuccess, message, isLoading, user } = useSelector(
+  const user = JSON.parse(localStorage.getItem('user'));
+  const { isError, isSuccess, message, isLoading } = useSelector(
     (state) => state.auth
   );
   const emailRef = useRef();
@@ -31,7 +32,7 @@ export default function Login() {
       toast.error(message);
     }
     if (isSuccess || user) {
-      navigate("/");
+      navigate('/');
     }
     dispatch(reset());
   }, [isError, isSuccess, user]);
@@ -74,13 +75,13 @@ export default function Login() {
           </InputContainer>
           <SubmitButtonContainer>
             <SubmitButton type="submit" disabled={isLoading}>
-              {isLoading ? "loading ..." : "SUBMIT"}
+              {isLoading ? 'loading ...' : 'SUBMIT'}
             </SubmitButton>
           </SubmitButtonContainer>
         </form>
       </FormContainer>
       <RegisterButtonContainer>
-        <RegisterButton type="button" onClick={() => navigate("/register")}>
+        <RegisterButton type="button" onClick={() => navigate('/register')}>
           Don't have an account ? Register here.
         </RegisterButton>
       </RegisterButtonContainer>

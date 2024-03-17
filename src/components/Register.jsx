@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 import {
   RegisterContainer,
   FormContainer,
@@ -10,31 +10,32 @@ import {
   SubmitButton,
   SubmitButtonContainer,
   FormHeader,
-} from "../assets/styledComponents/Main";
-import { useNavigate } from "react-router-dom";
-import { register, reset } from "../app/reducer/auth/authSlice";
-import { useSelector, useDispatch } from "react-redux";
-import { toast } from "react-toastify";
-import ViteIcon from "../assets/img/vite.svg";
+} from '../assets/styledComponents/Main';
+import { useNavigate } from 'react-router-dom';
+import { register, reset } from '../app/reducer/auth/authSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+import ViteIcon from '../assets/img/vite.svg';
 
 export default function Register() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { user, isLoading, isSuccess, isError, message } = useSelector(
+  const user = JSON.parse(localStorage.getItem('user'));
+  const { isLoading, isSuccess, isError, message } = useSelector(
     (state) => state.auth
   );
 
-  const fnameRef = useRef("");
-  const lnameRef = useRef("");
-  const emailRef = useRef("");
-  const pwordRef = useRef("");
+  const fnameRef = useRef('');
+  const lnameRef = useRef('');
+  const emailRef = useRef('');
+  const pwordRef = useRef('');
 
   useEffect(() => {
     if (isError) {
       toast.error(message);
     }
     if (isSuccess || user) {
-      navigate("/");
+      navigate('/');
     }
     dispatch(reset());
   }, [user, isError, message, isSuccess]);
@@ -93,13 +94,13 @@ export default function Register() {
           </InputContainer>
           <SubmitButtonContainer>
             <SubmitButton type="submit" disabled={isLoading}>
-              {isLoading ? "loading ..." : "SUBMIT"}
+              {isLoading ? 'loading ...' : 'SUBMIT'}
             </SubmitButton>
           </SubmitButtonContainer>
         </form>
       </FormContainer>
       <RegisterButtonContainer>
-        <RegisterButton type="button" onClick={() => navigate("/login")}>
+        <RegisterButton type="button" onClick={() => navigate('/login')}>
           Already have an account ? Login here.
         </RegisterButton>
       </RegisterButtonContainer>

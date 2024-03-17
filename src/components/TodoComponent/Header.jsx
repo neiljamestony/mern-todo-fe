@@ -4,6 +4,7 @@ import {
   AddTodoInput,
   AddTodoButton,
 } from '../../assets/styledComponents/Main';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../app/reducer/auth/authSlice';
 import {
@@ -16,10 +17,11 @@ import { toast } from 'react-toastify';
 
 export default function Header({ isEdit, setIsEdit, currTodo, setCurrTodo }) {
   const [isSearch, setIsSearch] = useState(false);
+  const user = JSON.parse(localStorage.getItem('user'));
   const dispatch = useDispatch();
   const [todo, setTodo] = useState('');
-  const user = JSON.parse(localStorage.getItem('user'));
   const { isLoading, isSuccess } = useSelector((state) => state.todo);
+  const navigate = useNavigate();
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -53,6 +55,11 @@ export default function Header({ isEdit, setIsEdit, currTodo, setCurrTodo }) {
     setIsSearch(false);
     dispatch(searchTodo(''));
     setTodo('');
+  };
+
+  const handleLogout = () => {
+    navigate('/');
+    dispatch(logout());
   };
 
   return (
@@ -98,10 +105,7 @@ export default function Header({ isEdit, setIsEdit, currTodo, setCurrTodo }) {
                   >
                     Search Todo
                   </AddTodoButton>
-                  <AddTodoButton
-                    type="button"
-                    onClick={() => dispatch(logout())}
-                  >
+                  <AddTodoButton type="button" onClick={() => handleLogout()}>
                     Logout
                   </AddTodoButton>
                 </>
