@@ -14,7 +14,7 @@ export default function Body({ isEdit, setIsEdit, setCurrTodo }) {
 
   useEffect(() => {
     let isDone = true;
-    isDone && setNewTodos(todos.filter((todo) => todo.user === user._id));
+    isDone && setNewTodos(todos.filter((todo) => todo?.user === user?._id));
 
     return () => {
       isDone = false;

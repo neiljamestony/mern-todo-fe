@@ -16,7 +16,7 @@ const TodoComponent = () => {
   }, [isError]);
 
   useEffect(() => {
-    dispatch(getTodoList(user._id));
+    dispatch(getTodoList(user?._id));
   }, []);
 
   return (

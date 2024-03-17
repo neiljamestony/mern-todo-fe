@@ -24,7 +24,7 @@ export default function Header({ isEdit, setIsEdit, currTodo, setCurrTodo }) {
   const onSubmit = async (e) => {
     e.preventDefault();
     await dispatch(
-      setTodoItem({ todo: todo, uid: user._id, isCompleted: false })
+      setTodoItem({ todo: todo, uid: user?._id, isCompleted: false })
     );
     if (isSuccess) {
       setTodo('');
