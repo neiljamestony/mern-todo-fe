@@ -49,63 +49,65 @@ export default function Header({ isEdit, setIsEdit, currTodo, setCurrTodo }) {
     setCurrTodo('');
   };
 
+  const handleBack = () => {
+    setIsSearch(false);
+    dispatch(searchTodo(''));
+    setTodo('');
+  };
+
   return (
     <div>
       {isSearch ? (
         <DashboardHeader>
           <AddTodoInput
-            type='text'
+            type="text"
             onChange={(e) => dispatch(searchTodo(e.target.value))}
-            placeholder='Search Todo'
+            placeholder="Search Todo"
           />
-          <AddTodoButton type='button' onClick={() => setIsSearch(false)}>
-            Add Todo
+          <AddTodoButton type="button" onClick={() => handleBack()}>
+            Back
           </AddTodoButton>
         </DashboardHeader>
       ) : (
         <>
-          {isEdit ? (
-            <form onSubmit={onSubmitEdit}>
-              <DashboardHeader>
-                <AddTodoInput
-                  type='text'
-                  value={currTodo?.title}
-                  onChange={(e) =>
-                    setCurrTodo({ ...currTodo, title: e.target.value })
-                  }
-                  placeholder='Edit Todo'
-                  required
-                />
-                <AddTodoButton type='submit' disabled={isLoading}>
-                  {isLoading ? 'loading ...' : 'Submit'}
-                </AddTodoButton>
-                <AddTodoButton type='button' onClick={() => onCancel()}>
+          <form onSubmit={isEdit ? onSubmitEdit : onSubmit}>
+            <DashboardHeader>
+              <AddTodoInput
+                type="text"
+                value={isEdit ? currTodo?.title : todo}
+                onChange={(e) =>
+                  isEdit
+                    ? setCurrTodo({ ...currTodo, title: e.target.value })
+                    : setTodo(e.target.value)
+                }
+                placeholder={isEdit ? 'Edit Todo' : 'Todo'}
+                required
+              />
+              <AddTodoButton type="submit" disabled={isLoading}>
+                {isLoading ? 'loading ...' : isEdit ? 'Submit' : 'Save'}
+              </AddTodoButton>
+              {isEdit ? (
+                <AddTodoButton type="button" onClick={() => onCancel()}>
                   Cancel
                 </AddTodoButton>
-              </DashboardHeader>
-            </form>
-          ) : (
-            <form onSubmit={onSubmit}>
-              <DashboardHeader>
-                <AddTodoInput
-                  type='text'
-                  value={todo}
-                  onChange={(e) => setTodo(e.target.value)}
-                  placeholder='Todo'
-                  required
-                />
-                <AddTodoButton type='submit' disabled={isLoading}>
-                  {isLoading ? 'loading' : 'Save'}
-                </AddTodoButton>
-                <AddTodoButton type='button' onClick={() => setIsSearch(true)}>
-                  Search Todo
-                </AddTodoButton>
-                <AddTodoButton type='button' onClick={() => dispatch(logout())}>
-                  Logout
-                </AddTodoButton>
-              </DashboardHeader>
-            </form>
-          )}
+              ) : (
+                <>
+                  <AddTodoButton
+                    type="button"
+                    onClick={() => setIsSearch(true)}
+                  >
+                    Search Todo
+                  </AddTodoButton>
+                  <AddTodoButton
+                    type="button"
+                    onClick={() => dispatch(logout())}
+                  >
+                    Logout
+                  </AddTodoButton>
+                </>
+              )}
+            </DashboardHeader>
+          </form>
         </>
       )}
     </div>

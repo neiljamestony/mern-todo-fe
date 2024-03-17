@@ -1,23 +1,23 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import {
   TodoItem,
   TodoIcon,
   IconButton,
   TodoTextWrapper,
   CheckboxIcon,
-} from "../assets/styledComponents/Main";
-import DeleteIcon from "../assets/img/delete.png";
-import Edit from "../assets/img/editing.png";
-import Square from "../assets/img/square.png";
-import Select from "../assets/img/select.png";
-import { useDispatch, useSelector } from "react-redux";
+} from '../assets/styledComponents/Main';
+import DeleteIcon from '../assets/img/delete.png';
+import Edit from '../assets/img/editing.png';
+import Square from '../assets/img/square.png';
+import Select from '../assets/img/select.png';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   completeTodoItem,
   removeTodoItem,
   reset,
   getTodoList,
-} from "../app/reducer/todo/todoSlice";
-import { toast } from "react-toastify";
+} from '../app/reducer/todo/todoSlice';
+import { toast } from 'react-toastify';
 
 export default function Todo({
   _id,
@@ -54,14 +54,14 @@ export default function Todo({
     if (isSuccess) {
       dispatch(getTodoList(user));
       dispatch(reset());
-      toast.success("Todo removed successfully!");
+      toast.success('Todo removed successfully!');
     }
   };
 
   return (
     <TodoItem>
       <TodoTextWrapper
-        style={{ textDecoration: isDone ? "line-through" : "none" }}
+        style={{ textDecoration: isDone ? 'line-through' : 'none' }}
       >
         {title}
       </TodoTextWrapper>

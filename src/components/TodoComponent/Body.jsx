@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import {
   DashboardBody,
   DashboardBodyWrapper,
@@ -8,8 +9,18 @@ import { useSelector } from 'react-redux';
 
 export default function Body({ isEdit, setIsEdit, setCurrTodo }) {
   const { todos, isFetching, search } = useSelector((state) => state.todo);
+  const [newTodos, setNewTodos] = useState([]);
   const user = JSON.parse(localStorage.getItem('user'));
-  let newTodos = todos.filter((todo) => todo.user === user._id);
+
+  useEffect(() => {
+    let isDone = true;
+    isDone && setNewTodos(todos.filter((todo) => todo.user === user._id));
+
+    return () => {
+      isDone = false;
+    };
+  }, [todos]);
+
   return (
     <DashboardBodyWrapper>
       <DashboardBody>
