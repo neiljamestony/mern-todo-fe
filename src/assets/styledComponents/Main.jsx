@@ -161,7 +161,6 @@ export const DashboardBodyWrapper = styled.div({
 });
 
 export const TodoItem = styled.div({
-  backgroundColor: "#fff",
   boxShadow: "4px 4px 20px 0px #0000003d",
   padding: 4,
   fontSize: 14,
@@ -184,7 +183,6 @@ export const NoDataIcon = styled.img({
 
 export const IconButton = styled.button({
   border: "none",
-  backgroundColor: "#fff",
   cursor: "pointer",
   "&:hover": {
     boxShadow: "4px 4px 20px 0px #0000003d",

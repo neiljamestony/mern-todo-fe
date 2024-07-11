@@ -1,20 +1,24 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import {
   DashboardBody,
   DashboardBodyWrapper,
-} from '../../assets/styledComponents/Main';
-import NoDataFound from '../NoDataFound';
-import Todo from '../Todo';
-import { useSelector } from 'react-redux';
+} from "../../assets/styledComponents/Main";
+import NoDataFound from "../NoDataFound";
+import Todo from "../Todo";
+import { useSelector } from "react-redux";
 
 export default function Body({ isEdit, setIsEdit, setCurrTodo }) {
   const { todos, isFetching, search } = useSelector((state) => state.todo);
   const [newTodos, setNewTodos] = useState([]);
-  const user = JSON.parse(localStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
     let isDone = true;
-    isDone && setNewTodos(todos.filter((todo) => todo?.user === user?._id));
+
+    if (Array.isArray(todos)) {
+      const filteredTodos = todos.filter((todo) => todo?.user === user?._id);
+      isDone && setNewTodos(filteredTodos);
+    }
 
     return () => {
       isDone = false;
@@ -28,7 +32,7 @@ export default function Body({ isEdit, setIsEdit, setCurrTodo }) {
           <>fetching ...</>
         ) : (
           <>
-            {!todos.length ? (
+            {!newTodos.length ? (
               <NoDataFound />
             ) : (
               <>

@@ -1,9 +1,9 @@
-import axios from 'axios';
+import axios from "axios";
 const env_var = import.meta.env;
 const API_URL =
-  env_var.VITE_APP_NODE_ENV === 'development'
-    ? `${env_var.VITE_APP_LOCAL_HOST}/api/todos`
-    : `${env_var.VITE_APP_PROD_HOST}/api/todos`;
+  env_var.VITE_APP_NODE_ENV === "development"
+    ? `${env_var.VITE_APP_LOCAL_HOST}/todos`
+    : `${env_var.VITE_APP_PROD_HOST}/todos`;
 
 const getTodos = async (uid) => {
   const response = await axios.get(`${API_URL}/list/${uid}`);
